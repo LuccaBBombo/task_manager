@@ -1,0 +1,11 @@
+.btn_small {
+    height: 21px;
+    width: 50px;
+    line-height: 21px;
+    margin: 5px 5px;
+    padding: 0 0.5em;
+}
+
+.task_header {
+    margin-top: 5px;
+}
