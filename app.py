@@ -9,7 +9,7 @@ app.config["MONGO_URI"] = os.getenv('MONGO_URI')
 
 mongo = PyMongo(app)
 
-
+#---------------------Tasks---------------------------------------------
 @app.route('/')
 @app.route('/get_tasks')
 def get_tasks():
@@ -40,11 +40,11 @@ def update_task(task_id):
     tasks = mongo.db.tasks
     tasks.update({'_id': ObjectId(task_id)},
     {
-        'task_name':request.form.get('task_name'),
-        'category_name':request.form.get('category_name'),
+        'task_name': request.form.get('task_name'),
+        'category_name': request.form.get('category_name'),
         'task_description': request.form.get('task_description'),
         'due_date': request.form.get('due_date'),
-        'is_urgent':request.form.get('is_urgent')
+        'is_urgent': request.form.get('is_urgent')
     })
     return redirect(url_for('get_tasks'))
 
@@ -52,6 +52,13 @@ def update_task(task_id):
 def done_task(task_id):
     mongo.db.tasks.remove({'_id': ObjectId(task_id)})
     return redirect(url_for('get_tasks'))
+
+#---------------------Categories---------------------------------------------
+
+@app.route('/get_categories')
+def get_categories():
+    return render_template('categories.html',
+                           categories=mongo.db.categories.find())
 
 
 if __name__ == '__main__':
